@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import PageLayout from '../components/layout/page_layout';
 // import Actions from '../actions';
 
 import DocumentTitle from 'react-document-title';
@@ -17,10 +18,13 @@ class App extends Component {
     const { router } = this.props;
 
     return (
-      <DocumentTitle title='GitChecker | Home'>
-        <h1>
-          Hello
-        </h1>
+      <DocumentTitle title='Recipe | Home'>
+        <PageLayout
+          router={router}
+          mainIconClass='circular search'
+          mainIconText='Recipe'>
+
+        </PageLayout>
       </DocumentTitle>
     )
   }
