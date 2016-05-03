@@ -19,14 +19,23 @@ class App extends Component {
 
     return (
       <DocumentTitle title='Recipe | Home'>
-        <PageLayout
-          router={router}
-          mainIconClass='circular search'
-          mainIconText='Recipe'>
+      <PageLayout
+        router={router}
+        mainIconClass='circular search'
+        mainIconText='Recipe'>
 
-        </PageLayout>
+      </PageLayout>
       </DocumentTitle>
     )
   }
 }
-export default connect()(App);
+
+
+function select (state) {
+  return {
+    router: state.routing,
+    ...state
+  };
+}
+
+export default connect(select)(App);

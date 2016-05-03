@@ -1,21 +1,37 @@
 import React from 'react';
-import { render } from 'react-dom';
-import { Provider } from 'react-redux';
-import store from './store/index';
-import routes from './routes';
+import ReactDOM from 'react-dom';
+import { combineReducers, createStore, applyMiddleware } from 'redux';
+import { reduxReactRouter, ReduxRouter } from 'redux-router';
+import { createHistory } from 'history';
+import { Provider } from 'react-redux'
+import { Router, Route, browserHistory, NoMatch } from 'react-router';
+import rootReducer from './reducers';
+import App from './containers/app';
+import { syncHistoryWithStore, routerReducer } from 'react-router-redux'
 
-// require('expose?moment!moment');
-// require('expose?mathjs!mathjs');
-// require('expose?_!lodash');
+const store = createStore(
+  combineReducers({
+    ...rootReducer,
+    routing: routerReducer
+  })
+)
 
-if (PRODUCTION) {
-  require('./vendor/ga.js');
-}
+const history = syncHistoryWithStore(browserHistory, store)
 
-const entry = (
-  <Provider store={store}>
-    {routes}
-  </Provider>
+const routes = (
+  <Router history={history}>
+    <Route path='/' component={App}/>
+    <Route path='*' component={NoMatch}/>
+  </Router>
 );
 
-render(entry, document.getElementById('root'));
+ReactDOM.render(
+  <Provider store={store}>
+    { /* Tell the Router to use our enhanced history */ }
+    <Router history={history}>
+      <Route path='/' component={App}/>
+      <Route path='*' component={NoMatch}/>
+    </Router>
+  </Provider>,
+  document.getElementById('root')
+)
