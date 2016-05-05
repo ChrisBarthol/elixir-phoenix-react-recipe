@@ -7,7 +7,7 @@ var env = process.env.MIX_ENV || 'dev';
 var isProduction = (env === 'prod');
 
 var plugins = [
-  new ExtractTextPlugin('app.css'),
+  new ExtractTextPlugin('css!sass'),
   new CopyWebpackPlugin([
       { from: './web/static/assets' },
       { from: './deps/phoenix_html/web/static/js/phoenix_html.js',
@@ -53,12 +53,10 @@ module.exports = {
           presets: ['es2015', 'react', 'stage-0'],
         }
       },
-      { test: /\.scss$/, loader: ExtractTextPlugin.extract('style-loader', 'css-loader?importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]!postcss-loader') },
-    ]
+      { test: /\.scss$/, loaders: ["style", "css", "sass"] }   ]
   },
-  // postcss: [
-  //   require('autoprefixer'),
-  //   require('postcss-color-rebeccapurple')
-  // ],
+  postcss: [
+    require('autoprefixer')
+  ],
   plugins: plugins
 };

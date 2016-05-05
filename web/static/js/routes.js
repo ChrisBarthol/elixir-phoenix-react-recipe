@@ -1,7 +1,7 @@
-import React from 'react';
-import App from './containers/app';
+import React from 'react'
+import App from './containers/app'
 // import About from './containers/about';
-import { Router, Route, NoMatch, browserHistory  } from 'react-router';
+import { Router, Route, NoMatch, browserHistory  } from 'react-router'
 import { syncHistoryWithStore } from 'react-router-redux'
 
 const history = syncHistoryWithStore(browserHistory, store)

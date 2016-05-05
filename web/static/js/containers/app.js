@@ -23,7 +23,6 @@ class App extends Component {
         router={router}
         mainIconClass='circular search'
         mainIconText='Recipe'>
-
       </PageLayout>
       </DocumentTitle>
     )
